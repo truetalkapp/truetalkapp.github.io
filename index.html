@@ -55,10 +55,62 @@
               <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">link</a>
             </li>
           </ul> -->
+
+        <!-- Waitlist button and pop start-->
+
+
+
         <button id="navAction"
           class="mx-auto lg:mx-2 bg-white text-gray-800 font-bold rounded-full mt-6 lg:mt-6 lg:my-5 py-3 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
           Join Waitlist
         </button>
+
+
+
+        <!-- Waitlist Modal -->
+        <div id="waitlistModal"
+          class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+          <div class="bg-white p-6 rounded-xl w-full max-w-lg shadow-lg relative" id="modalContent">
+            <button onclick="closeModal()"
+              class="absolute top-2 right-4 text-gray-500 text-xl hover:text-red-600">&times;
+            </button>
+            <!-- Success Message (hidden by default) -->
+            <div id="successMessage" class="hidden text-center p-4 mb-4 bg-green-100 text-green-700 rounded-lg">
+              <h3 class="font-bold">✅ Thank you!</h3>
+              <p>You've been added to the waitlist.</p>
+            </div>
+
+            <h2 class="text-xl font-semibold mb-4 text-center">Join the TrueTalk Waitlist</h2>
+            <form id="waitlistForm"
+              action="https://script.google.com/macros/s/AKfycbyxT-EUQAzhgdjijZbDTXHeQVZapxLatJlQIkmnRTRwj5BCbSZK3R0C65YKtqSLe1h_Vg/exec"
+              method="POST" class="space-y-4">
+              <input type="text" name="name" placeholder="Full Name" required class="w-full border rounded p-2" />
+              <input type="email" name="email" placeholder="Email" required class="w-full border rounded p-2" />
+              <input type="tel" name="phone" placeholder="Phone Number" required class="w-full border rounded p-2" />
+              <div>
+                <label class="block mb-1">Are you interested?</label>
+                <select name="interest" required class="w-full border rounded p-2">
+                  <option value="">-- Select --</option>
+                  <option value="No">No</option>
+                  <option value="Yes - Seeker">Yes - Seeker</option>
+                  <option value="Yes - Expert">Yes - Expert</option>
+                  <option value="Yes - Both">Yes - Both</option>
+                </select>
+              </div>
+              <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Submit</button>
+            </form>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+        <!-- Waitlist button and pop end-->
       </div>
     </div>
     <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
@@ -384,7 +436,7 @@
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
           <div class="flex items-center justify-start">
             <button
-              class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+              class="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
               Join Waitlist
             </button>
           </div>
@@ -408,7 +460,7 @@
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
           <div class="flex items-center justify-center">
             <button
-              class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+              class="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
               Join Waitlist
             </button>
           </div>
@@ -432,7 +484,7 @@
         <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
           <div class="flex items-center justify-end">
             <button
-              class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+              class="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
               Join Waitlist
             </button>
           </div>
@@ -563,7 +615,7 @@
       Join Truetalk and go ahead!
     </h3>
     <button
-      class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+      class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
       Join Waitlist
     </button>
   </section>
@@ -645,6 +697,7 @@
       © 2025 All rights reserved by <strong>TrueTalk</strong>
     </div>
   </footer>
+
   <!-- jQuery if you need it -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
@@ -729,6 +782,113 @@
       return false;
     }
   </script>
+
+  <script>
+    // Modal functionality
+    const modal = document.getElementById("waitlistModal");
+    const navActionBtn = document.getElementById("navAction");
+    const form = document.getElementById("waitlistForm");
+    const successMessage = document.getElementById("successMessage");
+
+    // Open modal when clicking any "Join Waitlist" button
+    document.querySelectorAll('[id="navAction"], .bg-white.text-gray-800').forEach(button => {
+      button.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        // Reset form and hide success message when opening modal
+        form.reset();
+        successMessage.classList.add("hidden");
+        form.classList.remove("hidden");
+      });
+    });
+
+    // Close modal function
+    function closeModal() {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+
+    // Close when clicking X button
+    document.querySelector('[onclick="closeModal()"]').addEventListener("click", closeModal);
+
+    // Close when clicking outside modal
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !modal.classList.contains("hidden")) {
+        closeModal();
+      }
+    });
+
+    // Form submission
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Show loading state
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = "Submitting...";
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Show success message and hide form
+          form.classList.add("hidden");
+          successMessage.classList.remove("hidden");
+
+          // Close modal after 2 seconds
+          setTimeout(() => {
+            closeModal();
+          }, 4000);
+        } else {
+          // Show error in the modal
+          const errorElement = document.createElement('div');
+          errorElement.className = 'text-red-500 text-center mb-4';
+          errorElement.textContent = result.error || "Please try again";
+          form.prepend(errorElement);
+
+          // Remove error after 3 seconds
+          setTimeout(() => {
+            errorElement.remove();
+          }, 5000);
+        }
+      } catch (err) {
+        console.error("Submission error:", err);
+        const errorElement = document.createElement('div');
+        errorElement.className = 'text-red-500 text-center mb-4';
+        errorElement.textContent = "Network error. Please check your connection.";
+        form.prepend(errorElement);
+
+        setTimeout(() => {
+          errorElement.remove();
+        }, 3000);
+      } finally {
+        // Reset button state
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+
+
 </body>
 
 </html>
