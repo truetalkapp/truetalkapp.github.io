@@ -32,6 +32,16 @@ body {
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'
 }
 
+
+
+
+/* Update your modal content styles */
+#modalContent {
+    width: 90%; /* Takes 90% of screen width on mobile */
+    max-width: 500px; /* But never wider than 500px */
+    margin: 20px auto;
+}
+
 /* Smooth transitions for modal */
 #waitlistModal {
     transition: opacity 0.3s ease, visibility 0.3s ease;
