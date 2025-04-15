@@ -50365,8 +50365,8 @@ video {
     }
 
     .sm\:px-6 {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem
+        padding-left: 0px;
+        padding-right: 0px
     }
 
     .sm\:px-7 {
