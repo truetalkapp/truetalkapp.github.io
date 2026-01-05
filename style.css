@@ -1,0 +1,521 @@
+/* =========================================
+   TrueTalk - Main Stylesheet
+   Clean & Optimized Version
+   ========================================= */
+
+/* --- Variables & Base --- */
+:root {
+    --brand-orange: #ff5100;
+    --brand-dark: #030303;
+    --brand-panel: #0a0a0a;
+    --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--brand-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-orange);
+}
+
+/* --- Focus States for Accessibility --- */
+*:focus-visible {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: 2px;
+}
+
+/* --- Utilities --- */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+/* 3D Tilt */
+.tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.tilt-content {
+    transform: translateZ(30px);
+}
+
+/* --- Reduced Motion Support --- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+/* 1. Cyber Grid Background */
+.cyber-grid {
+    background-image:
+        linear-gradient(rgba(255, 81, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 81, 0, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+/* 2. Scanline Effect */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 81, 0, 0.1);
+    opacity: 0.4;
+    animation: scanline 6s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes scanline {
+    0% { top: -10%; }
+    100% { top: 110%; }
+}
+
+/* 3. Glitch Text Effect */
+.glitch {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--brand-dark);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(38px, 9999px, 81px, 0); }
+    20% { clip: rect(69px, 9999px, 88px, 0); }
+    40% { clip: rect(11px, 9999px, 6px, 0); }
+    60% { clip: rect(59px, 9999px, 1px, 0); }
+    80% { clip: rect(96px, 9999px, 46px, 0); }
+    100% { clip: rect(2px, 9999px, 86px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(15px, 9999px, 92px, 0); }
+    20% { clip: rect(83px, 9999px, 11px, 0); }
+    40% { clip: rect(4px, 9999px, 26px, 0); }
+    60% { clip: rect(24px, 9999px, 57px, 0); }
+    80% { clip: rect(71px, 9999px, 32px, 0); }
+    100% { clip: rect(93px, 9999px, 5px, 0); }
+}
+
+/* Glitch Hover Effect */
+.glitch-hover:hover {
+    animation: glitch-shake 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: var(--brand-orange);
+}
+
+@keyframes glitch-shake {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* 4. Marquee Animation */
+.animate-marquee {
+    animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* 5. Scroll Reveals */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s var(--transition-smooth);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 6. Pulse Glow */
+.animate-pulse-glow {
+    animation: pulseGlow 4s infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        opacity: 0.1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.15;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* 7. Slow Spin */
+.animate-spin-slow {
+    animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 8. Loader Line */
+.loader-line {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.loader-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: var(--brand-orange);
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { left: -50%; }
+    100% { left: 150%; }
+}
+
+/* 9. Fade In Up */
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s var(--transition-smooth) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 10. Float Animation */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* 11. Radar Scan */
+.animate-radar {
+    animation: radar 8s linear infinite;
+}
+
+@keyframes radar {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100vw); }
+}
+
+/* 12. Slow Ping */
+.animate-ping-slow {
+    animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* 13. SVG Line Dash */
+.animate-dash {
+    stroke-dasharray: 10;
+    animation: dash 30s linear infinite;
+}
+
+@keyframes dash {
+    to { stroke-dashoffset: 1000; }
+}
+
+/* 14. Terminal Scanline */
+.animate-scanline {
+    animation: terminalScan 4s linear infinite;
+}
+
+@keyframes terminalScan {
+    0% { top: -10%; opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { top: 110%; opacity: 0; }
+}
+
+/* 15. Dual Marquee for Divisions */
+.animate-scroll-left {
+    animation: scrollLeft 40s linear infinite;
+}
+
+.animate-scroll-right {
+    animation: scrollRight 40s linear infinite;
+}
+
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* =========================================
+   GLOBE & MAP SECTION
+   ========================================= */
+
+.holo-globe {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg');
+    background-size: cover;
+    box-shadow: 
+        inset 30px 0 70px 10px #000, 
+        inset -30px 0 70px 10px #000, 
+        0 0 50px rgba(255, 81, 0, 0.2);
+    animation: spinGlobe 40s linear infinite;
+    filter: grayscale(100%) contrast(1.5) brightness(0.8) sepia(1) hue-rotate(-50deg) saturate(3);
+    opacity: 0.8;
+    position: relative;
+}
+
+.holo-globe::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, transparent 0%, #000 90%);
+    z-index: 2;
+}
+
+@keyframes spinGlobe {
+    0% { background-position: 0 0; }
+    100% { background-position: -1000px 0; }
+}
+
+/* Orbital Rings */
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.orbit-1 {
+    width: 700px;
+    height: 700px;
+    animation: spin 60s linear infinite;
+}
+
+.orbit-2 {
+    width: 900px;
+    height: 900px;
+    border-style: dashed;
+    animation: spin 80s linear infinite reverse;
+}
+
+.orbit-3 {
+    width: 1100px;
+    height: 1100px;
+    border-color: rgba(255, 81, 0, 0.1);
+    animation: spin 100s linear infinite;
+}
+
+/* =========================================
+   CURSOR SPOTLIGHT
+   ========================================= */
+
+.cursor-spotlight {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle at center, rgba(255, 81, 0, 0.08) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: transform 0.1s ease-out;
+}
+
+/* =========================================
+   LOADING & ERROR STATES
+   ========================================= */
+
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.error-shake {
+    animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* =========================================
+   FORM VALIDATION STYLES
+   ========================================= */
+
+.input-error {
+    border-color: #ef4444 !important;
+    animation: errorShake 0.5s ease-in-out;
+}
+
+.input-success {
+    border-color: #22c55e !important;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.error-message.visible {
+    display: block;
+}
+
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+   ========================================= */
+
+@media (max-width: 768px) {
+    .holo-globe {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .orbit-1 { width: 400px; height: 400px; }
+    .orbit-2 { width: 500px; height: 500px; }
+    .orbit-3 { width: 600px; height: 600px; }
+    
+    .cursor-spotlight {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .holo-globe {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .orbit-ring {
+        display: none;
+    }
+}
+
+/* =========================================
+   PRINT STYLES
+   ========================================= */
+
+@media print {
+    .scanline,
+    .cyber-grid,
+    .cursor-spotlight,
+    .orbit-ring,
+    #preloader {
+        display: none !important;
+    }
+    
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
